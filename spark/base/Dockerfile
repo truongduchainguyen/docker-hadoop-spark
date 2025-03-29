@@ -1,8 +1,8 @@
-FROM alpine:3.10
+FROM debian:stable
 
-ENV ENABLE_INIT_DAEMON false
-ENV INIT_DAEMON_BASE_URI http://identifier/init-daemon
-ENV INIT_DAEMON_STEP spark_master_init
+ENV ENABLE_INIT_DAEMON=false
+ENV INIT_DAEMON_BASE_URI=http://identifier/init-daemon
+ENV INIT_DAEMON_STEP=spark_master_init
 
 ENV BASE_URL=https://archive.apache.org/dist/spark/
 ENV SPARK_VERSION=3.4.4
@@ -14,7 +14,7 @@ COPY finish-step.sh /
 
 #COPY bde-spark.css /css/org/apache/spark/ui/static/timeline-view.css
 
-RUN apt-get update && apt-get install -y curl bash openjdk8-jre python3 py-pip nss libc6-compat coreutils procps \
+RUN apt-get update && apt-get install -y wget curl bash openjdk-17-jdk python3 python3-pip libnss3-dev libc6-dev coreutils procps \
       && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 \
       && chmod +x *.sh \
       && wget ${BASE_URL}/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
@@ -30,4 +30,4 @@ RUN chmod +x /wait-for-step.sh && chmod +x /execute-step.sh && chmod +x /finish-
 
 # Fix the value of PYTHONHASHSEED
 # Note: this is needed when you use Python 3.3 or greater
-ENV PYTHONHASHSEED 1
+ENV PYTHONHASHSEED=1
