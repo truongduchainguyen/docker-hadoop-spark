@@ -1,4 +1,4 @@
-FROM inkeister/hadoop-base:0.1.0
+FROM inkeister/hadoop-base:latest
 
 HEALTHCHECK CMD curl -f http://localhost:8042/ || exit 1
 

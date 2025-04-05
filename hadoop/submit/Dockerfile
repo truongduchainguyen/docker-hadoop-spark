@@ -1,4 +1,4 @@
-FROM inkeister/hadoop-base:0.1.0
+FROM inkeister/hadoop-base:latest
 
 COPY WordCount.jar /opt/hadoop/applications/WordCount.jar
 
