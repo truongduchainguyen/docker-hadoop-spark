@@ -20,9 +20,6 @@ if [ $# -eq 0 ]
     build worker
     build history-server
     build submit
-    build maven-template template/maven
-    build sbt-template template/sbt
-    build python-template template/python
 
   else
     build $1 $2

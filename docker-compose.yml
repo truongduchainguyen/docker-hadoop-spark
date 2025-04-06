@@ -1,6 +1,6 @@
 services:
   namenode:
-    image: inkeister/hadoop-namenode:latest
+    image: inkeister/hadoop-namenode:0.1.0
     container_name: namenode
     restart: always
     ports:
