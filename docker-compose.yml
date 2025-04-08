@@ -59,49 +59,49 @@ services:
     env_file:
       - ./hadoop/hadoop.env
 
-  # spark-master:
-  #   image: inkeister/spark-master:0.1.0
-  #   container_name: spark-master
-  #   depends_on:
-  #     - namenode
-  #     - datanode
-  #   ports:
-  #     - "8080:8080"
-  #     - "7077:7077"
-  #   environment:
-  #     - INIT_DAEMON_STEP=setup_spark
-  #     - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
-  #
-  # spark-worker-1:
-  #   image: inkeister/spark-worker:0.1.0
-  #   container_name: spark-worker-1
-  #   depends_on:
-  #     - spark-master
-  #   ports:
-  #     - "8081:8081"
-  #   environment:
-  #     - "SPARK_MASTER=spark://spark-master:7077"
-  #     - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
-  #
-  # spark-worker-2:
-  #   image: inkeister/spark-worker:0.1.0
-  #   container_name: spark-worker-2
-  #   depends_on:
-  #     - spark-master
-  #   ports:
-  #     - "8082:8081"
-  #   environment:
-  #     - "SPARK_MASTER=spark://spark-master:7077"
-  #
-  # spark-history-server:
-  #     image: inkeister/spark-history-server:0.1.0
-  #     container_name: spark-history-server
-  #     depends_on:
-  #       - spark-master
-  #     ports:
-  #       - "18081:18081"
-  #     volumes:
-  #       - /tmp/spark-events-local:/tmp/spark-events
+  spark-master:
+    image: inkeister/spark-master:0.1.0
+    container_name: spark-master
+    depends_on:
+      - namenode
+      - datanode
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    environment:
+      - INIT_DAEMON_STEP=setup_spark
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+
+  spark-worker-1:
+    image: inkeister/spark-worker:0.1.0
+    container_name: spark-worker-1
+    depends_on:
+      - spark-master
+    ports:
+      - "8081:8081"
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+
+  spark-worker-2:
+    image: inkeister/spark-worker:0.1.0
+    container_name: spark-worker-2
+    depends_on:
+      - spark-master
+    ports:
+      - "8082:8081"
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+
+  spark-history-server:
+      image: inkeister/spark-history-server:0.1.0
+      container_name: spark-history-server
+      depends_on:
+        - spark-master
+      ports:
+        - "18081:18081"
+      volumes:
+        - /tmp/spark-events-local:/tmp/spark-events
 
 volumes:
   hadoop_namenode:

@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:11
 
 ENV ENABLE_INIT_DAEMON=false
 ENV INIT_DAEMON_BASE_URI=http://identifier/init-daemon
@@ -14,7 +14,7 @@ COPY finish-step.sh /
 
 #COPY bde-spark.css /css/org/apache/spark/ui/static/timeline-view.css
 
-RUN apt-get update && apt-get install -y wget curl bash openjdk-17-jdk python3 python3-pip libnss3-dev libc6-dev coreutils procps \
+RUN apt-get update && apt-get install -y wget curl bash openjdk-11-jdk python3 python3-pip libnss3-dev libc6-dev coreutils procps \
       && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 \
       && chmod +x *.sh \
       && wget ${BASE_URL}/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
